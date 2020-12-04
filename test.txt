@@ -1,4 +1,11 @@
-this is the test for group project 
+<<<<<<< HEAD
+this is the test for group project
 this is the same
 
 merry christmas
+=======
+this is the test for group project
+this is the same
+
+testik
+>>>>>>> 7fe4277fdd3a2f95de06e183e2b1d9681a2f14d1
