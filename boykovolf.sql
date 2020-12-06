@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 06, 2020 at 10:32 AM
+-- Generation Time: Dec 06, 2020 at 01:46 PM
 -- Server version: 5.7.31
 -- PHP Version: 7.3.21
 
@@ -120,6 +120,30 @@ INSERT INTO `reviews` (`ReviewID`, `ReviewText`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `userbooks`
+--
+
+DROP TABLE IF EXISTS `userbooks`;
+CREATE TABLE IF NOT EXISTS `userbooks` (
+  `UserID` int(11) NOT NULL,
+  `BookID` int(11) NOT NULL,
+  PRIMARY KEY (`UserID`,`BookID`),
+  KEY `book_user` (`BookID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `userbooks`
+--
+
+INSERT INTO `userbooks` (`UserID`, `BookID`) VALUES
+(2, 1),
+(1, 2),
+(2, 2),
+(1, 3);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `userreviewbook`
 --
 
@@ -176,6 +200,13 @@ INSERT INTO `users` (`UserID`, `Username`, `User_email`, `password`, `privileges
 ALTER TABLE `author's table`
   ADD CONSTRAINT `author's table_ibfk_1` FOREIGN KEY (`AuthorID`) REFERENCES `authors` (`AuthorID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `books table` FOREIGN KEY (`BookID`) REFERENCES `books` (`BookID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `userbooks`
+--
+ALTER TABLE `userbooks`
+  ADD CONSTRAINT `book_user` FOREIGN KEY (`BookID`) REFERENCES `books` (`BookID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_book` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `userreviewbook`
