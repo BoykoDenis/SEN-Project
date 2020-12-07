@@ -1,0 +1,13 @@
+.packs
+{
+    display:inline-block;
+    border-style: solid;
+    background: white;
+    text-align: center;
+}
+
+#categories
+{
+    width: 10%;
+    height: 100%;
+}

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 06, 2020 at 01:46 PM
+-- Generation Time: Dec 07, 2020 at 02:00 PM
 -- Server version: 5.7.31
 -- PHP Version: 7.3.21
 
@@ -29,20 +29,24 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `author's table`;
 CREATE TABLE IF NOT EXISTS `author's table` (
+  `AuthorshipID` int(11) NOT NULL AUTO_INCREMENT,
   `AuthorID` int(11) NOT NULL,
   `BookID` int(11) NOT NULL,
-  PRIMARY KEY (`AuthorID`,`BookID`),
-  KEY `books table` (`BookID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  `GenreID` int(11) NOT NULL,
+  PRIMARY KEY (`AuthorshipID`),
+  UNIQUE KEY `AuthorID` (`AuthorID`,`BookID`,`GenreID`),
+  UNIQUE KEY `AuthorID_2` (`AuthorID`,`BookID`),
+  KEY `BookID_form_books` (`BookID`),
+  KEY `GenreID_from_genres` (`GenreID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Dumping data for table `author's table`
 --
 
-INSERT INTO `author's table` (`AuthorID`, `BookID`) VALUES
-(1, 1),
-(2, 1),
-(3, 3);
+INSERT INTO `author's table` (`AuthorshipID`, `AuthorID`, `BookID`, `GenreID`) VALUES
+(1, 1, 1, 1),
+(2, 2, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -98,6 +102,31 @@ INSERT INTO `books` (`BookID`, `Bookname`, `rating`, `RateSubmitted`, `available
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `genres`
+--
+
+DROP TABLE IF EXISTS `genres`;
+CREATE TABLE IF NOT EXISTS `genres` (
+  `GenreID` int(11) NOT NULL AUTO_INCREMENT,
+  `GenreName` text COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`GenreID`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `genres`
+--
+
+INSERT INTO `genres` (`GenreID`, `GenreName`) VALUES
+(1, 'Sci-fi'),
+(2, 'Fantasy'),
+(3, 'Action and adventure'),
+(4, 'Horror'),
+(5, 'Mystery'),
+(6, 'Western');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `reviews`
 --
 
@@ -125,21 +154,21 @@ INSERT INTO `reviews` (`ReviewID`, `ReviewText`) VALUES
 
 DROP TABLE IF EXISTS `userbooks`;
 CREATE TABLE IF NOT EXISTS `userbooks` (
+  `LoanID` int(11) NOT NULL AUTO_INCREMENT,
   `UserID` int(11) NOT NULL,
   `BookID` int(11) NOT NULL,
-  PRIMARY KEY (`UserID`,`BookID`),
-  KEY `book_user` (`BookID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  PRIMARY KEY (`LoanID`),
+  UNIQUE KEY `UserID` (`UserID`,`BookID`),
+  KEY `UB_booksID_from_books` (`BookID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Dumping data for table `userbooks`
 --
 
-INSERT INTO `userbooks` (`UserID`, `BookID`) VALUES
-(2, 1),
-(1, 2),
-(2, 2),
-(1, 3);
+INSERT INTO `userbooks` (`LoanID`, `UserID`, `BookID`) VALUES
+(1, 1, 1),
+(2, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -149,21 +178,24 @@ INSERT INTO `userbooks` (`UserID`, `BookID`) VALUES
 
 DROP TABLE IF EXISTS `userreviewbook`;
 CREATE TABLE IF NOT EXISTS `userreviewbook` (
+  `feedbackID` int(11) NOT NULL AUTO_INCREMENT,
   `UserID` int(11) NOT NULL,
   `ReviewID` int(11) NOT NULL,
   `BookID` int(11) NOT NULL,
-  PRIMARY KEY (`BookID`),
+  PRIMARY KEY (`feedbackID`),
   UNIQUE KEY `UserID` (`UserID`,`BookID`),
-  UNIQUE KEY `ReviewID` (`ReviewID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  UNIQUE KEY `ReviewID` (`ReviewID`),
+  KEY `URB_booksID_from_books` (`BookID`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Dumping data for table `userreviewbook`
 --
 
-INSERT INTO `userreviewbook` (`UserID`, `ReviewID`, `BookID`) VALUES
-(2, 1, 2),
-(1, 3, 3);
+INSERT INTO `userreviewbook` (`feedbackID`, `UserID`, `ReviewID`, `BookID`) VALUES
+(1, 3, 1, 3),
+(2, 3, 3, 1),
+(7, 1, 2, 3);
 
 -- --------------------------------------------------------
 
@@ -180,7 +212,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `privileges` int(1) NOT NULL,
   `online_status` tinyint(1) NOT NULL,
   PRIMARY KEY (`UserID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Dumping data for table `users`
@@ -188,7 +220,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`UserID`, `Username`, `User_email`, `password`, `privileges`, `online_status`) VALUES
 (1, 'Doctor', 'denya.boyko@gmail.com', 'apple', 1, 1),
-(2, 'SteamPunk123', 'arrayon@hotmail.com', 'filip', 0, 1);
+(2, 'SteamPunk123', 'arrayon@hotmail.com', 'filip', 0, 1),
+(3, 'amthos', 'volf.t@gjh.sk', 'tomas', 1, 0);
 
 --
 -- Constraints for dumped tables
@@ -198,23 +231,24 @@ INSERT INTO `users` (`UserID`, `Username`, `User_email`, `password`, `privileges
 -- Constraints for table `author's table`
 --
 ALTER TABLE `author's table`
-  ADD CONSTRAINT `author's table_ibfk_1` FOREIGN KEY (`AuthorID`) REFERENCES `authors` (`AuthorID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `books table` FOREIGN KEY (`BookID`) REFERENCES `books` (`BookID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `AuthorID_from_authors` FOREIGN KEY (`AuthorID`) REFERENCES `authors` (`AuthorID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `BookID_form_books` FOREIGN KEY (`BookID`) REFERENCES `books` (`BookID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `GenreID_from_genres` FOREIGN KEY (`GenreID`) REFERENCES `genres` (`GenreID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `userbooks`
 --
 ALTER TABLE `userbooks`
-  ADD CONSTRAINT `book_user` FOREIGN KEY (`BookID`) REFERENCES `books` (`BookID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `user_book` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `UB_booksID_from_books` FOREIGN KEY (`BookID`) REFERENCES `books` (`BookID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `UB_usersID_from_users` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `userreviewbook`
 --
 ALTER TABLE `userreviewbook`
-  ADD CONSTRAINT `books` FOREIGN KEY (`BookID`) REFERENCES `books` (`BookID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `reviews` FOREIGN KEY (`ReviewID`) REFERENCES `reviews` (`ReviewID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `users` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`);
+  ADD CONSTRAINT `URB_booksID_from_books` FOREIGN KEY (`BookID`) REFERENCES `books` (`BookID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `URB_reviewsID_from_reviews` FOREIGN KEY (`ReviewID`) REFERENCES `reviews` (`ReviewID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `URB_usersID_from_users` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
