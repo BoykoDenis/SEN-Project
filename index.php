@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 
+<?php
+    require("database_acces.php");
+
+?>
+
 
 <html>
     <head>
