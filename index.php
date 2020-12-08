@@ -1,28 +1,30 @@
 <!DOCTYPE html>
 
+
 <html>
     <head>
         <title>The Library</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
     </head>
     <body>
         <header>
-            <img src = 'Logo.png' style = "width:100px; filter:invert(1)">
-            <input type = 'text'>
-            <button>
+            <img src = 'Logo2.png' id = "logo">
+            <input type = 'text' id = "search">
+            <button class = "headerbutton">
                 Log in
             </button>
-            <button>
+            <button class = "headerbutton">
                 Sign up
             </button>
         </header>
-        <div>
-            <div class = "packs", id = "categories">
+        <div id = "main_div">
+            <div class = "packs" id = "categories">
                 kategorie
             </div>
-            <div style = "display:inline-block;">
-                kokotiny
+            <div id = "main">
+                blbosti
             </div>
-            <div style = "display:inline-block;">
+            <div id = "adds">
                 reklamy
             </div>
         </div>
