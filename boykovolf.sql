@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 07, 2020 at 02:00 PM
+-- Generation Time: Dec 09, 2020 at 09:40 AM
 -- Server version: 5.7.31
 -- PHP Version: 7.3.21
 
@@ -57,9 +57,10 @@ INSERT INTO `author's table` (`AuthorshipID`, `AuthorID`, `BookID`, `GenreID`) V
 DROP TABLE IF EXISTS `authors`;
 CREATE TABLE IF NOT EXISTS `authors` (
   `AuthorID` int(11) NOT NULL AUTO_INCREMENT,
-  `AuthorName` text COLLATE utf8_bin NOT NULL,
+  `AuthorName` varchar(60) COLLATE utf8_bin NOT NULL,
   `General_Information` text COLLATE utf8_bin NOT NULL,
-  PRIMARY KEY (`AuthorID`)
+  PRIMARY KEY (`AuthorID`),
+  KEY `AuthorName` (`AuthorName`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
@@ -82,12 +83,13 @@ INSERT INTO `authors` (`AuthorID`, `AuthorName`, `General_Information`) VALUES
 DROP TABLE IF EXISTS `books`;
 CREATE TABLE IF NOT EXISTS `books` (
   `BookID` int(11) NOT NULL AUTO_INCREMENT,
-  `Bookname` text COLLATE utf8_bin NOT NULL,
+  `Bookname` varchar(100) COLLATE utf8_bin NOT NULL,
   `rating` int(1) NOT NULL,
   `RateSubmitted` int(11) NOT NULL,
   `available_amount` int(11) NOT NULL,
   `General_Information` text COLLATE utf8_bin NOT NULL,
-  PRIMARY KEY (`BookID`)
+  PRIMARY KEY (`BookID`),
+  KEY `Bookname` (`Bookname`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
@@ -108,8 +110,9 @@ INSERT INTO `books` (`BookID`, `Bookname`, `rating`, `RateSubmitted`, `available
 DROP TABLE IF EXISTS `genres`;
 CREATE TABLE IF NOT EXISTS `genres` (
   `GenreID` int(11) NOT NULL AUTO_INCREMENT,
-  `GenreName` text COLLATE utf8_bin NOT NULL,
-  PRIMARY KEY (`GenreID`)
+  `GenreName` varchar(30) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`GenreID`),
+  KEY `GenreName` (`GenreName`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
@@ -117,11 +120,11 @@ CREATE TABLE IF NOT EXISTS `genres` (
 --
 
 INSERT INTO `genres` (`GenreID`, `GenreName`) VALUES
-(1, 'Sci-fi'),
-(2, 'Fantasy'),
 (3, 'Action and adventure'),
+(2, 'Fantasy'),
 (4, 'Horror'),
 (5, 'Mystery'),
+(1, 'Sci-fi'),
 (6, 'Western');
 
 -- --------------------------------------------------------
@@ -206,12 +209,13 @@ INSERT INTO `userreviewbook` (`feedbackID`, `UserID`, `ReviewID`, `BookID`) VALU
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `UserID` int(11) NOT NULL AUTO_INCREMENT,
-  `Username` text COLLATE utf8_bin NOT NULL,
+  `Username` varchar(30) COLLATE utf8_bin NOT NULL,
   `User_email` text COLLATE utf8_bin NOT NULL,
   `password` varchar(40) COLLATE utf8_bin NOT NULL,
   `privileges` int(1) NOT NULL,
   `online_status` tinyint(1) NOT NULL,
-  PRIMARY KEY (`UserID`)
+  PRIMARY KEY (`UserID`),
+  KEY `Username` (`Username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --

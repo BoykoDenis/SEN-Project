@@ -24,7 +24,9 @@
         </header>
         <div id = "main_div">
             <div class = "packs" id = "categories">
-                kategorie
+                <?php
+                    $categories_sql = "SELECT "
+                ?>
             </div>
             <div id = "main">
                 blbosti
