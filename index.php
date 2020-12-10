@@ -35,12 +35,15 @@
             </div>
             <div id = "main">
                 <div class = "main_header" id = "recomended">
+                    RECOMENDED
                 </div>
                 <div class = "main_header" id = "top">
+                    TOP
                 </div>
                 <div class = "main_header" id = "placeholder">
                 </div>
                 <div class = "main_header" id = "sortby">
+                    SORT BY \/
                 </div>
                     <?php
                             $sugg_books_sql = "SELECT BookID, Bookname FROM books LIMIT 5";
@@ -53,7 +56,14 @@
 
                 </div>
             <div id = "adds">
-                reklamy
+                <?php
+                    $ads_sql = "SELECT AddName, url_link FROM ads";
+                    $result = $con->query($ads_sql);
+                    while ($row = $result->fetch_assoc())
+                    {
+                        echo '<div class = "ads">'.$row['AddName'].'</div>';
+                    }
+                ?>
             </div>
         </div>
     </body>

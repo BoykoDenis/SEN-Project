@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 09, 2020 at 09:40 AM
+-- Generation Time: Dec 10, 2020 at 02:06 PM
 -- Server version: 5.7.31
 -- PHP Version: 7.3.21
 
@@ -20,6 +20,28 @@ SET time_zone = "+00:00";
 --
 -- Database: `boykovolf`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ads`
+--
+
+DROP TABLE IF EXISTS `ads`;
+CREATE TABLE IF NOT EXISTS `ads` (
+  `addID` int(11) NOT NULL AUTO_INCREMENT,
+  `AddName` varchar(30) COLLATE utf8_bin NOT NULL,
+  `url_link` text COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`addID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `ads`
+--
+
+INSERT INTO `ads` (`addID`, `AddName`, `url_link`) VALUES
+(1, 'world of tanks', 'https://www.googleadservices.com/pagead/aclk?sa=L&ai=DChcSEwj5woPhicHtAhWY5HcKHXmxAT8YABAAGgJlZg&ohost=www.google.com&cid=CAESQOD2J_imZx3xOYrFyFIPtA2bJHmEJiO909JvwsQh5YWXmOzP1p19do5Mt8iciU8Y0Dc3wit3qBObiSh14KrGh8s&sig=AOD64_0nOkURfpEHkYrM-jfL-mX16lsp4w&q&adurl&ved=2ahUKEwjVufrgicHtAhXF-6QKHX80AzQQ0Qx6BAgHEAE'),
+(2, 'WarThunder', 'https://www.googleadservices.com/pagead/aclk?sa=L&ai=DChcSEwiH3ajwicHtAhUGqncKHWYJC6MYABAAGgJlZg&ohost=www.google.com&cid=CAESQOD2SyYzpyBb8GFnmHvONWz1bRNpbMlaRn3fhpLZu_-dwAGP21UPHzcsb8d78_rrEPYxvyWAlMIpEiaxmMFWs_0&sig=AOD64_0BjOZhxvotzPhj0lPoDqgjG-qbww&q&adurl&ved=2ahUKEwj1p5_wicHtAhUyMewKHX2KAs8Q0Qx6BAgaEAE');
 
 -- --------------------------------------------------------
 
