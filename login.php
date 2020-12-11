@@ -2,14 +2,15 @@
 
 <?php
     session_start();
-    if (isset($_POST['login']))
+    require("database_acces.php");
+    if (isset($_POST['login']) and isset($_POST['pass']) and isset($_POST['Username']))
     {
         require("database_acces.php");
         $username = $_POST['Username'];
-        $password = $_POST['password'];
+        $password = $_POST['pass'];
     $sql = "SELECT * FROM users WHERE Username='{$username}' AND password='{$password}'";
     echo $sql;
-    $result = $mysqli->query($sql);
+    $result = $con->query($sql);
     if (mysqli_num_rows($result)>0)
     {
         $_SESSION['Username']=$username;
