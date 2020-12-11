@@ -46,12 +46,12 @@
                     SORT BY \/
                 </div>
                     <?php
-                            $sugg_books_sql = "SELECT BookID, Bookname FROM books LIMIT 5";
-                            $result = $con->query($sugg_books_sql);
-                            while ($row = $result->fetch_assoc())
-                            {
-                                echo '<div class = "suggestions">'.$row['Bookname'].'</div>';
-                            }
+                        $sugg_books_sql = "SELECT BookID, Bookname FROM books LIMIT 5";
+                        $result = $con->query($sugg_books_sql);
+                        while ($row = $result->fetch_assoc())
+                        {
+                            echo "<div class = 'suggestions'>".$row['Bookname']."</div>";
+                        }
                     ?>
 
                 </div>
@@ -61,7 +61,7 @@
                     $result = $con->query($ads_sql);
                     while ($row = $result->fetch_assoc())
                     {
-                        echo '<div class = "ads">'.$row['AddName'].'</div>';
+                        echo '<div class = "add" style="background-image: url('..');">'.$row['AddName'].'</div>';
                     }
                 ?>
             </div>

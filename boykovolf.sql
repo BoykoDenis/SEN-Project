@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 10, 2020 at 02:06 PM
+-- Generation Time: Dec 11, 2020 at 08:14 AM
 -- Server version: 5.7.31
 -- PHP Version: 7.3.21
 
@@ -31,17 +31,19 @@ DROP TABLE IF EXISTS `ads`;
 CREATE TABLE IF NOT EXISTS `ads` (
   `addID` int(11) NOT NULL AUTO_INCREMENT,
   `AddName` varchar(30) COLLATE utf8_bin NOT NULL,
+  `AddImage` varchar(100) COLLATE utf8_bin NOT NULL,
   `url_link` text COLLATE utf8_bin NOT NULL,
-  PRIMARY KEY (`addID`)
+  PRIMARY KEY (`addID`),
+  UNIQUE KEY `AddImage` (`AddImage`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Dumping data for table `ads`
 --
 
-INSERT INTO `ads` (`addID`, `AddName`, `url_link`) VALUES
-(1, 'world of tanks', 'https://www.googleadservices.com/pagead/aclk?sa=L&ai=DChcSEwj5woPhicHtAhWY5HcKHXmxAT8YABAAGgJlZg&ohost=www.google.com&cid=CAESQOD2J_imZx3xOYrFyFIPtA2bJHmEJiO909JvwsQh5YWXmOzP1p19do5Mt8iciU8Y0Dc3wit3qBObiSh14KrGh8s&sig=AOD64_0nOkURfpEHkYrM-jfL-mX16lsp4w&q&adurl&ved=2ahUKEwjVufrgicHtAhXF-6QKHX80AzQQ0Qx6BAgHEAE'),
-(2, 'WarThunder', 'https://www.googleadservices.com/pagead/aclk?sa=L&ai=DChcSEwiH3ajwicHtAhUGqncKHWYJC6MYABAAGgJlZg&ohost=www.google.com&cid=CAESQOD2SyYzpyBb8GFnmHvONWz1bRNpbMlaRn3fhpLZu_-dwAGP21UPHzcsb8d78_rrEPYxvyWAlMIpEiaxmMFWs_0&sig=AOD64_0BjOZhxvotzPhj0lPoDqgjG-qbww&q&adurl&ved=2ahUKEwj1p5_wicHtAhUyMewKHX2KAs8Q0Qx6BAgaEAE');
+INSERT INTO `ads` (`addID`, `AddName`, `AddImage`, `url_link`) VALUES
+(1, 'world of tanks', 'images/wot.jpg', 'https://www.googleadservices.com/pagead/aclk?sa=L&ai=DChcSEwj5woPhicHtAhWY5HcKHXmxAT8YABAAGgJlZg&ohost=www.google.com&cid=CAESQOD2J_imZx3xOYrFyFIPtA2bJHmEJiO909JvwsQh5YWXmOzP1p19do5Mt8iciU8Y0Dc3wit3qBObiSh14KrGh8s&sig=AOD64_0nOkURfpEHkYrM-jfL-mX16lsp4w&q&adurl&ved=2ahUKEwjVufrgicHtAhXF-6QKHX80AzQQ0Qx6BAgHEAE'),
+(2, 'WarThunder', 'images/War_Thunder.png', 'https://www.googleadservices.com/pagead/aclk?sa=L&ai=DChcSEwiH3ajwicHtAhUGqncKHWYJC6MYABAAGgJlZg&ohost=www.google.com&cid=CAESQOD2SyYzpyBb8GFnmHvONWz1bRNpbMlaRn3fhpLZu_-dwAGP21UPHzcsb8d78_rrEPYxvyWAlMIpEiaxmMFWs_0&sig=AOD64_0BjOZhxvotzPhj0lPoDqgjG-qbww&q&adurl&ved=2ahUKEwj1p5_wicHtAhUyMewKHX2KAs8Q0Qx6BAgaEAE');
 
 -- --------------------------------------------------------
 
@@ -106,11 +108,13 @@ DROP TABLE IF EXISTS `books`;
 CREATE TABLE IF NOT EXISTS `books` (
   `BookID` int(11) NOT NULL AUTO_INCREMENT,
   `Bookname` varchar(100) COLLATE utf8_bin NOT NULL,
+  `BookImage` varchar(100) COLLATE utf8_bin NOT NULL,
   `rating` int(1) NOT NULL,
   `RateSubmitted` int(11) NOT NULL,
   `available_amount` int(11) NOT NULL,
   `General_Information` text COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`BookID`),
+  UNIQUE KEY `BookImage` (`BookImage`),
   KEY `Bookname` (`Bookname`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
@@ -118,10 +122,10 @@ CREATE TABLE IF NOT EXISTS `books` (
 -- Dumping data for table `books`
 --
 
-INSERT INTO `books` (`BookID`, `Bookname`, `rating`, `RateSubmitted`, `available_amount`, `General_Information`) VALUES
-(1, 'Monday Begins on Saturday', 0, 0, 10, 'Monday Begins on Saturday (Russian: Понедельник начинается в субботу) is a 1965 science fantasy novel by Soviet writers Boris and Arkady Strugatsky, with illustrations by Yevgeniy Migunov. Set in a fictional town in northern Russia, where research in magic occurs, the novel is a satire of Soviet scientific research institutes. It offers an idealistic view of the scientific work ethic, as reflected in the title which suggests that the scientists\' weekends are nonexistent. Their idealism is contrasted by an inept administration and a dishonest, show-horse professor. '),
-(2, 'The Final Circle of Paradise', 0, 0, 11, 'The Final Circle of Paradise (Russian: Хищные вещи века, romanized: Khishnye veshi veka, lit. \'Predatory Things of the Century\') is a science fiction novel by Arkady and Boris Strugatsky (also spelled Strugatski or Strugatskii) set in the first half of the 21st century. It was first published in the USSR in 1965 and the first English edition, translated by Leonid Renen, was published by DAW Books in 1976. The literal English translation of the original Russian title is \"Predatory Things of Our Times\". This is a line from Andrei Voznesensky\'s poem Beatnik\'s Monologue. Machine Riot (1961).'),
-(3, 'Foundation', 0, 0, 3, 'blabla bla');
+INSERT INTO `books` (`BookID`, `Bookname`, `BookImage`, `rating`, `RateSubmitted`, `available_amount`, `General_Information`) VALUES
+(1, 'Monday Begins on Saturday', 'images/MondayBeginsonSaturday.jpg', 0, 0, 10, 'Monday Begins on Saturday (Russian: Понедельник начинается в субботу) is a 1965 science fantasy novel by Soviet writers Boris and Arkady Strugatsky, with illustrations by Yevgeniy Migunov. Set in a fictional town in northern Russia, where research in magic occurs, the novel is a satire of Soviet scientific research institutes. It offers an idealistic view of the scientific work ethic, as reflected in the title which suggests that the scientists\' weekends are nonexistent. Their idealism is contrasted by an inept administration and a dishonest, show-horse professor. '),
+(2, 'The Final Circle of Paradise', 'images/TheFinalCircleofParadise.jpg', 0, 0, 11, 'The Final Circle of Paradise (Russian: Хищные вещи века, romanized: Khishnye veshi veka, lit. \'Predatory Things of the Century\') is a science fiction novel by Arkady and Boris Strugatsky (also spelled Strugatski or Strugatskii) set in the first half of the 21st century. It was first published in the USSR in 1965 and the first English edition, translated by Leonid Renen, was published by DAW Books in 1976. The literal English translation of the original Russian title is \"Predatory Things of Our Times\". This is a line from Andrei Voznesensky\'s poem Beatnik\'s Monologue. Machine Riot (1961).'),
+(3, 'Foundation', 'images/foundation.jpg', 0, 0, 3, 'blabla bla');
 
 -- --------------------------------------------------------
 
